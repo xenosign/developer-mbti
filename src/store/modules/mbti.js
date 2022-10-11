@@ -8,7 +8,6 @@
 const CHECK = 'mbti/CHECK';
 const NEXT = 'mbti/NEXT';
 const RESET = 'mbti/RESET';
-const SHOW = 'mbti/SHOW';
 
 // 액션 생성 함수
 // payload -> 문항 index, 선택한 결과 값 choice
