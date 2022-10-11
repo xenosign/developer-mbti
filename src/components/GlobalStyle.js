@@ -11,6 +11,12 @@ const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'ONE-Mobile-POP', "Arial", sans-serif;
         padding-top: 1em;
+        white-space: pre-wrap;
+    }
+
+    ul, ol {
+        list-style: none;
+        padding-left: 0px;
     }
 `;
 
