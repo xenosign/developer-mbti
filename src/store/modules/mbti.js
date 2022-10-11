@@ -10,7 +10,7 @@ const NEXT = 'mbti/NEXT';
 const RESET = 'mbti/RESET';
 
 // 액션 생성 함수
-// payload -> 문항 index, 선택한 결과 값 choice
+// payload -> 선택에 다른 결과 값 result 전달 필요
 export function check(result) {
   return {
     type: CHECK,

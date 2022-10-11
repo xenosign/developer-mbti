@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const MyButton = styled.a`
   position: relative;
   display: inline-block;
-  margin-top: 1em;
   cursor: pointer;
   vertical-align: middle;
   text-decoration: none;
@@ -16,6 +15,7 @@ const MyButton = styled.a`
   user-select: none;
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
+  margin-top: 1em;
   &::before {
     content: '';
     position: absolute;
@@ -29,7 +29,6 @@ const MyButton = styled.a`
     border-radius: inherit;
     box-shadow: 0 0 0 2px ${(props) => props.subColor};
     transform: translate3d(0, 0.75em, -1em);
-    transition: transform 0.15s ease-out;
   }
   &:hover {
     background: ${(props) => props.hoverColor};
