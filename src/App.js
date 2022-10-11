@@ -24,10 +24,10 @@ function App() {
       <Main>
         {page === 0 ? (
           <Start />
-        ) : page === survey.length + 1 ? (
-          <Show />
-        ) : (
+        ) : page !== survey.length + 1 ? (
           <Mbti />
+        ) : (
+          <Show />
         )}
       </Main>
     </>
