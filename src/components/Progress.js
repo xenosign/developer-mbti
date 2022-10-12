@@ -8,7 +8,7 @@ const Fill = styled.div`
   width: 100%;
   height: 10px;
   background-color: #777;
-  margin-top: 10px;
+  margin-top: 1em;
   text-align: left;
 `;
 
