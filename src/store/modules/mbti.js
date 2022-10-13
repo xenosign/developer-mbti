@@ -1,15 +1,3 @@
-const getAllData = async () => {
-  const res = await fetch('http://localhost:4000/data');
-  if (res.status === 200) {
-    const data = res.json();
-    return data;
-  } else {
-    throw new Error('통신 이상');
-  }
-};
-
-const ad = getAllData().then((data) => data);
-
 // 선택지에 따른 성향 분석하기
 // 해당 결과를 저장하고 마지막에 저장 된 결과를 출력해 주기
 
@@ -17,12 +5,20 @@ const ad = getAllData().then((data) => data);
 // 액션: 선택에 따른 MBTI 결정하기
 
 // 액션 타입(문자열)
+const INIT = 'mbti/INIT';
 const CHECK = 'mbti/CHECK';
 const NEXT = 'mbti/NEXT';
 const RESET = 'mbti/RESET';
 
 // 액션 생성 함수
 // payload -> 선택에 다른 결과 값 result 전달 필요
+export function init(data) {
+  return {
+    type: INIT,
+    payload: data,
+  };
+}
+
 export function check(result) {
   return {
     type: CHECK,
@@ -42,38 +38,13 @@ export function reset() {
   };
 }
 
-const initState2 = {
+let initState2 = {
   mbtiResult: '',
   page: 0,
   survey: [],
 };
 
-// fetch('http://localhost:4000/data')
-//   .then((res) => res.json())
-//   .then((data) => {
-//     const survey = data.survey;
-//     console.log(survey);
-
-//     for (let i = 0; i < survey.length; i = i + 2) {
-//       initState2.survey.push({
-//         question: survey[i].question_text,
-//         answer: [
-//           {
-//             text: survey[i].answer_text,
-//             result: survey[i].result,
-//           },
-//           {
-//             text: survey[i + 1].answer_text,
-//             result: survey[i + 1].result,
-//           },
-//         ],
-//       });
-//     }
-
-//     console.log(initState2);
-//   });
-
-// // 초기 상태 설정
+// 초기 상태 설정
 // const initState = {
 //   mbtiResult: '',
 //   page: 0, // 0: 인트로 페이지, 1 ~ n: 선택 페이지, n+1: 결과 페이지
@@ -208,6 +179,12 @@ const initState2 = {
 // 리듀서
 export default function mbti(state = initState2, action) {
   switch (action.type) {
+    case INIT:
+      return {
+        ...state,
+        survey: action.payload.survey,
+        explaination: action.payload.explaination,
+      };
     case CHECK:
       return {
         ...state,

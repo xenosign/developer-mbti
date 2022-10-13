@@ -3,15 +3,15 @@ const router = express.Router();
 
 const db = require('../controllers/dataController');
 
-router.get('/', (req, res) => {
+router.get('/survey', (req, res) => {
   db.getSurvey((data) => {
-    res.send({ survey: data });
+    res.send(data);
   });
 });
 
 router.get('/explaination', (req, res) => {
-  db.getSurvey((data) => {
-    res.send({ answer: data });
+  db.getExplaination((data) => {
+    res.send(data);
   });
 });
 

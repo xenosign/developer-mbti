@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import OrangeButton from './OrangeButton';
-import { next } from '../store/modules/mbti';
+import { next, init } from '../store/modules/mbti';
+import { useEffect, useState } from 'react';
 
 const MainImg = styled.img`
   width: inherit;
@@ -17,7 +18,61 @@ const SubHeader = styled.p`
 `;
 
 export default function Start() {
+  const [initData, setInitData] = useState({
+    survey: [],
+    explaination: {},
+  });
+
   const dispatch = useDispatch();
+
+  const makeData = (survey, explaination) => {
+    for (let i = 0; i < survey.length; i = i + 2) {
+      initData.survey.push({
+        question: survey[i].question_text,
+        answer: [
+          {
+            text: survey[i].answer_text,
+            result: survey[i].result,
+          },
+          {
+            text: survey[i + 1].answer_text,
+            result: survey[i + 1].result,
+          },
+        ],
+      });
+    }
+
+    for (let i = 0; i < explaination.length; i++) {
+      initData.explaination[explaination[i].mbti_type] = {
+        explaination: explaination[i].explaination,
+        img: explaination[i].img_src,
+      };
+    }
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      const resSurvey = await fetch('http://localhost:4000/data/survey');
+      if (resSurvey.status === 200) {
+        const surveyData = await resSurvey.json();
+
+        const resExplaination = await fetch(
+          'http://localhost:4000/data/explaination'
+        );
+        if (resExplaination.status === 200) {
+          const explainationData = await resExplaination.json();
+          console.log(explainationData);
+          makeData(surveyData, explainationData);
+          dispatch(init(initData));
+        } else {
+          throw new Error('통신 이상');
+        }
+      } else {
+        throw new Error('통신 이상');
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <>
