@@ -10,20 +10,10 @@ router.get('/count', (req, res) => {
   });
 });
 
-router.get('/mongoCount', async (req, res) => {
-  const counts = await mongoDB.getCounts();
-  res.send(counts);
-});
-
 router.post('/inccount', (req, res) => {
   db.incCounts((msg) => {
     res.send(msg);
   });
-});
-
-router.post('/mongoInccount', async (req, res) => {
-  const msg = await mongoDB.incCounts();
-  res.send(JSON.stringify(msg));
 });
 
 router.get('/survey', (req, res) => {
@@ -32,8 +22,8 @@ router.get('/survey', (req, res) => {
   });
 });
 
-router.get('/explaination', (req, res) => {
-  db.getExplaination((data) => {
+router.get('/explanation', (req, res) => {
+  db.getExplanation((data) => {
     res.send(data);
   });
 });

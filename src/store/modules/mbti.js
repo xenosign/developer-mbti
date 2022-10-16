@@ -38,10 +38,11 @@ export function reset() {
   };
 }
 
-let initState2 = {
+const initStateEmpty = {
   mbtiResult: '',
   page: 0,
   survey: [],
+  explanation: {},
 };
 
 // 초기 상태 설정
@@ -106,7 +107,7 @@ let initState2 = {
 //       ],
 //     },
 //   ],
-//   explaination: {
+//   explanation: {
 //     ESTJ: {
 //       text: '무리한 개발 일정만 아니라면 일정을 철저하게 지킬 당신의 MBTI 는!',
 //       img: '/images/estj.jpg',
@@ -177,13 +178,13 @@ let initState2 = {
 // console.log(initState);
 
 // 리듀서
-export default function mbti(state = initState2, action) {
+export default function mbti(state = initStateEmpty, action) {
   switch (action.type) {
     case INIT:
       return {
         ...state,
         survey: action.payload.survey,
-        explaination: action.payload.explaination,
+        explanation: action.payload.explanation,
       };
     case CHECK:
       return {

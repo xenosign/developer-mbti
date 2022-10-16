@@ -22,35 +22,34 @@ export default function Start() {
 
   const dispatch = useDispatch();
 
-  const makeData = (survey, explaination) => {
-    const initData = { survey: [], explaination: {} };
+  function makeData(survey, explanation) {
+    const initData = { survey: [], explanation: {} };
     if (initData.survey.length === 0) {
       for (let i = 0; i < survey.length; i = i + 2) {
         initData.survey.push({
-          question: survey[i].question_text,
+          question: survey[i].QUESTION_TEXT,
           answer: [
             {
-              text: survey[i].answer_text,
-              result: survey[i].result,
+              text: survey[i].ANSWER_TEXT,
+              result: survey[i].RESULT,
             },
             {
-              text: survey[i + 1].answer_text,
-              result: survey[i + 1].result,
+              text: survey[i + 1].ANSWER_TEXT,
+              result: survey[i + 1].RESULT,
             },
           ],
         });
       }
 
-      for (let i = 0; i < explaination.length; i++) {
-        initData.explaination[explaination[i].mbti_type] = {
-          explaination: explaination[i].explaination,
-          img: explaination[i].img_src,
+      for (let i = 0; i < explanation.length; i++) {
+        initData.explanation[explanation[i].MBTI_TYPE] = {
+          explanation: explanation[i].EXPLAINATION,
+          img: explanation[i].IMG_SRC,
         };
       }
     }
-
     return initData;
-  };
+  }
 
   async function sqlFetchData() {
     const resCount = await fetch('http://localhost:4000/data/count');
@@ -64,7 +63,7 @@ export default function Start() {
     const resSurvey = await fetch('http://localhost:4000/data/survey');
     if (resSurvey.status === 200) {
       const surveyData = await resSurvey.json();
-
+      console.log(surveyData);
       const resExplaination = await fetch(
         'http://localhost:4000/data/explaination'
       );
@@ -100,7 +99,38 @@ export default function Start() {
   }
 
   useEffect(() => {
-    sqlFetchData();
+    async function fetchData() {
+      // counts 값 받아오기
+      const resCount = await fetch('http://localhost:4000/data/count');
+      if (resCount.status === 200) {
+        const num = await resCount.json();
+        if (num[0].counts !== 0) setCounts(num[0].counts);
+      } else {
+        throw new Error('통신 이상');
+      }
+
+      // survey 값을 위한 JOIN Table 의 데이터 받아오기
+      const resSurvey = await fetch('http://localhost:4000/data/survey');
+      if (resSurvey.status === 200) {
+        const surveyData = await resSurvey.json();
+
+        const resExplanation = await fetch(
+          'http://localhost:4000/data/explanation'
+        );
+        if (resExplanation.status === 200) {
+          const explanationData = await resExplanation.json();
+          const madeData = makeData(surveyData, explanationData);
+          dispatch(init(madeData));
+        } else {
+          throw new Error('통신 이상');
+        }
+      } else {
+        throw new Error('통신 이상');
+      }
+    }
+
+    fetchData();
+    // sqlFetchData();
     // mongoFetchData();
   }, []);
 

@@ -18,15 +18,15 @@ const db = {
   },
   getSurvey: (cb) => {
     connection.query(
-      'SELECT * FROM mydb.question LEFT JOIN mydb.answer ON mydb.question._id=mydb.answer.question_id',
+      'SELECT * FROM mydb.question q LEFT JOIN mydb.answer a ON q.ID_PK=a.QUESTION_ID_FK',
       (err, data) => {
         if (err) throw err;
         cb(data);
       }
     );
   },
-  getExplaination: (cb) => {
-    connection.query('SELECT * FROM mydb.explaination', (err, data) => {
+  getExplanation: (cb) => {
+    connection.query('SELECT * FROM mydb.explanation', (err, data) => {
       if (err) throw err;
       cb(data);
     });
