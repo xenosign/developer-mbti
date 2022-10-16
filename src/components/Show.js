@@ -43,6 +43,17 @@ export default function Show() {
     }
   };
 
+  const mongoIncCount = async () => {
+    const resMongoInc = await fetch('http://localhost:4000/mongo/inccount', {
+      method: 'POST',
+    });
+    if (resMongoInc.status === 200) {
+      console.log(await resMongoInc.json());
+    } else {
+      throw new Error('통신 이상');
+    }
+  };
+
   return (
     <>
       <Header>당신의 개발자 MBTI 결과는?</Header>

@@ -18,16 +18,12 @@ const SubHeader = styled.p`
 `;
 
 export default function Start() {
-  const [initData, setInitData] = useState({
-    survey: [],
-    explaination: {},
-  });
-
   const [counts, setCounts] = useState(0);
 
   const dispatch = useDispatch();
 
   const makeData = (survey, explaination) => {
+    const initData = { survey: [], explaination: {} };
     if (initData.survey.length === 0) {
       for (let i = 0; i < survey.length; i = i + 2) {
         initData.survey.push({
@@ -52,40 +48,61 @@ export default function Start() {
         };
       }
     }
+
+    return initData;
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const resCount = await fetch('http://localhost:4000/data/count');
-      if (resCount.status === 200) {
-        const num = await resCount.json();
-        if (num[0].counts !== 0) setCounts(num[0].counts);
-      } else {
-        throw new Error('통신 이상');
-      }
-
-      const resSurvey = await fetch('http://localhost:4000/data/survey');
-      if (resSurvey.status === 200) {
-        const surveyData = await resSurvey.json();
-
-        const resExplaination = await fetch(
-          'http://localhost:4000/data/explaination'
-        );
-        if (resExplaination.status === 200) {
-          const explainationData = await resExplaination.json();
-          makeData(surveyData, explainationData);
-          if (initData.survey.length !== 0) {
-            dispatch(init(initData));
-          }
-        } else {
-          throw new Error('통신 이상');
-        }
-      } else {
-        throw new Error('통신 이상');
-      }
+  async function sqlFetchData() {
+    const resCount = await fetch('http://localhost:4000/data/count');
+    if (resCount.status === 200) {
+      const num = await resCount.json();
+      if (num[0].counts !== 0) setCounts(num[0].counts);
+    } else {
+      throw new Error('통신 이상');
     }
-    fetchData();
-  }, [counts]);
+
+    const resSurvey = await fetch('http://localhost:4000/data/survey');
+    if (resSurvey.status === 200) {
+      const surveyData = await resSurvey.json();
+
+      const resExplaination = await fetch(
+        'http://localhost:4000/data/explaination'
+      );
+      if (resExplaination.status === 200) {
+        const explainationData = await resExplaination.json();
+        const data = makeData(surveyData, explainationData);
+        dispatch(init(data));
+      } else {
+        throw new Error('통신 이상');
+      }
+    } else {
+      throw new Error('통신 이상');
+    }
+  }
+
+  async function mongoFetchData() {
+    const resMongoCount = await fetch('http://localhost:4000/mongo/count');
+    if (resMongoCount.status === 200) {
+      const num = await resMongoCount.json();
+      if (num[0].counts !== 0) setCounts(num[0].counts);
+    } else {
+      throw new Error('통신 이상');
+    }
+    const resMongoData = await fetch('http://localhost:4000/mongo/getdata');
+    if (resMongoData.status === 200) {
+      const data = await resMongoData.json();
+      if (data[0].survey.length !== 0) {
+        dispatch(init(data[0]));
+      }
+    } else {
+      throw new Error('통신 이상');
+    }
+  }
+
+  useEffect(() => {
+    sqlFetchData();
+    // mongoFetchData();
+  }, []);
 
   return (
     <>
