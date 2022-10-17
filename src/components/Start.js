@@ -90,8 +90,6 @@ export default function Start() {
     const resMongoData = await fetch('http://localhost:4000/mongo/getdata');
     if (resMongoData.status === 200) {
       const data = await resMongoData.json();
-      console.log(data);
-      // 리액트의 기본 동작으로 통신 전 빈 데이터가 전달 되는 것을 예방
       if (data[0].survey.length !== 0) {
         dispatch(init(data[0]));
       }

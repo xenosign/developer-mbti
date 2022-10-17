@@ -64,7 +64,7 @@ const initState = {
       ],
     },
   ],
-  explaination: {
+  explanation: {
     ESTJ: {
       text: '무리한 개발 일정만 아니라면 일정을 철저하게 지킬 당신의 MBTI 는!',
       img: '/images/estj.jpg',
