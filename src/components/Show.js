@@ -64,7 +64,8 @@ export default function Show() {
       <PinkButton
         text="다시 검사하기"
         clickEvent={() => {
-          incCount();
+          //incCount();
+          mongoIncCount();
           dispatch(reset());
         }}
       />
