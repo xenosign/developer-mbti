@@ -65,7 +65,7 @@ export default function Start() {
       const surveyData = await resSurvey.json();
       console.log(surveyData);
       const resExplaination = await fetch(
-        'http://localhost:4000/data/explaination'
+        'http://localhost:3001/data/explaination'
       );
       if (resExplaination.status === 200) {
         const explainationData = await resExplaination.json();
