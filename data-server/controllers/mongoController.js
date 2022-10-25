@@ -137,6 +137,7 @@ const mongoDB = {
     const client = await _client;
     const db = client.db('mbti').collection('counts');
     const data = await db.find({}).toArray();
+    console.log(data);
     return data;
   },
   incCounts: async () => {

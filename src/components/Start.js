@@ -52,7 +52,7 @@ export default function Start() {
   }
 
   async function sqlFetchData() {
-    const resCount = await fetch('http://localhost:4000/data/count');
+    const resCount = await fetch('http://localhost:3001/data/count');
     if (resCount.status === 200) {
       const num = await resCount.json();
       if (num[0].counts !== 0) setCounts(num[0].counts);
@@ -60,7 +60,7 @@ export default function Start() {
       throw new Error('통신 이상');
     }
 
-    const resSurvey = await fetch('http://localhost:4000/data/survey');
+    const resSurvey = await fetch('http://localhost:3001/data/survey');
     if (resSurvey.status === 200) {
       const surveyData = await resSurvey.json();
       console.log(surveyData);
@@ -80,14 +80,15 @@ export default function Start() {
   }
 
   async function mongoFetchData() {
-    const resMongoCount = await fetch('http://localhost:4000/mongo/count');
+    const resMongoCount = await fetch('http://localhost:3001/mongo/count');
     if (resMongoCount.status === 200) {
       const num = await resMongoCount.json();
+      console.log(num);
       if (num[0].counts !== 0) setCounts(num[0].counts);
     } else {
       throw new Error('통신 이상');
     }
-    const resMongoData = await fetch('http://localhost:4000/mongo/getdata');
+    const resMongoData = await fetch('http://localhost:3001/mongo/getdata');
     if (resMongoData.status === 200) {
       const data = await resMongoData.json();
       if (data[0].survey.length !== 0) {
