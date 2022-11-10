@@ -39,7 +39,7 @@ export default function Show() {
     if (resInc.status === 200) {
       console.log(await resInc.json());
     } else {
-      throw new Error('통신 이상');
+      throw new Error('통신 이상!!');
     }
   };
 
