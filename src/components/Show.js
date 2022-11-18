@@ -69,7 +69,7 @@ export default function Show() {
         clickEvent={() => {
           //incCount();
           mongoIncCount();
-          dispatch(reset());
+          // dispatch(reset());
         }}
       />
     </>
