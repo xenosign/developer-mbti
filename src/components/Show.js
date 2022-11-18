@@ -45,7 +45,7 @@ export default function Show() {
 
   const mongoIncCount = async () => {
     const resMongoInc = await fetch(
-      'http://15.164.94.246/:3001/mongo/inccount',
+      'http://15.164.94.246:3001/mongo/inccount',
       {
         method: 'POST',
       }
