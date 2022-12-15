@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PinkButton from './PinkButton';
 import { reset } from '../store/modules/mbti';
 
+const SERVER = '3.34.177.57:3001';
+
 const Header = styled.p`
   font-size: 3em;
 `;
@@ -33,7 +35,7 @@ export default function Show() {
   const dispatch = useDispatch();
 
   const incCount = async () => {
-    const resInc = await fetch('http://15.164.94.246:3001/data/inccount', {
+    const resInc = await fetch(`http://${SERVER}/data/inccount`, {
       method: 'POST',
     });
     if (resInc.status === 200) {
@@ -44,12 +46,9 @@ export default function Show() {
   };
 
   const mongoIncCount = async () => {
-    const resMongoInc = await fetch(
-      'http://15.164.94.246:3001/mongo/inccount',
-      {
-        method: 'POST',
-      }
-    );
+    const resMongoInc = await fetch(`http://${SERVER}/mongo/inccount`, {
+      method: 'POST',
+    });
     if (resMongoInc.status === 200) {
       console.log(await resMongoInc.json());
     } else {
