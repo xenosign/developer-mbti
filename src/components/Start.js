@@ -5,6 +5,7 @@ import { next, init } from '../store/modules/mbti';
 import { useEffect, useState } from 'react';
 
 const SERVER = '3.34.177.57:3001';
+const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
 
 const MainImg = styled.img`
   width: inherit;
@@ -54,7 +55,7 @@ export default function Start() {
   }
 
   async function sqlFetchData() {
-    const resCount = await fetch(`http://${SERVER}/data/count`);
+    const resCount = await fetch(`${HTTPS}/data/count`);
     if (resCount.status === 200) {
       const num = await resCount.json();
       if (num[0].counts !== 0) setCounts(num[0].counts);
@@ -62,11 +63,11 @@ export default function Start() {
       throw new Error('통신 이상');
     }
 
-    const resSurvey = await fetch(`http://${SERVER}/data/survey`);
+    const resSurvey = await fetch(`${HTTPS}/data/survey`);
     if (resSurvey.status === 200) {
       const surveyData = await resSurvey.json();
       console.log(surveyData);
-      const resExplaination = await fetch(`http://${SERVER}/data/explaination`);
+      const resExplaination = await fetch(`${HTTPS}/data/explaination`);
       if (resExplaination.status === 200) {
         const explainationData = await resExplaination.json();
         const data = makeData(surveyData, explainationData);
@@ -80,7 +81,7 @@ export default function Start() {
   }
 
   async function mongoFetchData() {
-    const resMongoCount = await fetch(`http://${SERVER}/mongo/count`);
+    const resMongoCount = await fetch(`${HTTPS}/mongo/count`);
     if (resMongoCount.status === 200) {
       const num = await resMongoCount.json();
       console.log(num);
@@ -88,7 +89,7 @@ export default function Start() {
     } else {
       throw new Error('통신 이상');
     }
-    const resMongoData = await fetch(`http://${SERVER}/mongo/getdata`);
+    const resMongoData = await fetch(`${HTTPS}/mongo/getdata`);
     if (resMongoData.status === 200) {
       const data = await resMongoData.json();
       if (data[0].survey.length !== 0) {

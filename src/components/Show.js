@@ -4,6 +4,7 @@ import PinkButton from './PinkButton';
 import { reset } from '../store/modules/mbti';
 
 const SERVER = '3.34.177.57:3001';
+const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
 
 const Header = styled.p`
   font-size: 3em;
@@ -35,7 +36,7 @@ export default function Show() {
   const dispatch = useDispatch();
 
   const incCount = async () => {
-    const resInc = await fetch(`http://${SERVER}/data/inccount`, {
+    const resInc = await fetch(`${HTTPS}/data/inccount`, {
       method: 'POST',
     });
     if (resInc.status === 200) {
@@ -46,7 +47,7 @@ export default function Show() {
   };
 
   const mongoIncCount = async () => {
-    const resMongoInc = await fetch(`http://${SERVER}/mongo/inccount`, {
+    const resMongoInc = await fetch(`${HTTPS}/mongo/inccount`, {
       method: 'POST',
     });
     if (resMongoInc.status === 200) {
