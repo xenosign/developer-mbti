@@ -5,7 +5,7 @@ import { reset } from '../store/modules/mbti';
 
 const SERVER = '3.34.177.57:3001';
 const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
-// I DID IT
+// I DID IT!!
 
 const Header = styled.p`
   font-size: 3em;
