@@ -6,6 +6,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 const mongoRouter = require('./routes/mongo');
 app.use('/mongo', mongoRouter);
