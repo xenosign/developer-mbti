@@ -38,7 +38,7 @@ export default function Show() {
   const dispatch = useDispatch();
 
   const incCount = async () => {
-    const resInc = await fetch(`${SERVER}/data/inccount`, {
+    const resInc = await fetch(`${HTTP}/data/inccount`, {
       method: 'POST',
     });
     if (resInc.status === 200) {
@@ -49,7 +49,7 @@ export default function Show() {
   };
 
   const mongoIncCount = async () => {
-    const resMongoInc = await fetch(`${SERVER}/mongo/inccount`, {
+    const resMongoInc = await fetch(`${HTTP}/mongo/inccount`, {
       method: 'POST',
     });
     if (resMongoInc.status === 200) {
