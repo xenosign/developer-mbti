@@ -5,6 +5,7 @@ import { reset } from '../store/modules/mbti';
 
 const SERVER = '3.34.177.57:3001';
 const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
+const HTTP = 'http://mbti.tetz.org/';
 // I DID IT!!
 
 const Header = styled.p`
@@ -37,7 +38,7 @@ export default function Show() {
   const dispatch = useDispatch();
 
   const incCount = async () => {
-    const resInc = await fetch(`${HTTPS}/data/inccount`, {
+    const resInc = await fetch(`${HTTP}/data/inccount`, {
       method: 'POST',
     });
     if (resInc.status === 200) {
@@ -48,7 +49,7 @@ export default function Show() {
   };
 
   const mongoIncCount = async () => {
-    const resMongoInc = await fetch(`${HTTPS}/mongo/inccount`, {
+    const resMongoInc = await fetch(`${HTTP}/mongo/inccount`, {
       method: 'POST',
     });
     if (resMongoInc.status === 200) {
