@@ -86,7 +86,7 @@ export default function Start() {
     if (resMongoCount.status === 200) {
       const num = await resMongoCount.json();
       console.log(num);
-      if (num[0].counts !== 0) setCounts(num[0].counts);
+      if (num[0].counts !== 0) setCounts((cur) => num[0].counts);
     } else {
       throw new Error('통신 이상');
     }
