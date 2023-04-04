@@ -4,7 +4,7 @@ import OrangeButton from './OrangeButton';
 import { next, init } from '../store/modules/mbti';
 import { useEffect, useState } from 'react';
 
-const SERVER = '3.34.177.57:3001';
+const SERVER = 'http://3.34.177.57:80';
 const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
 const HTTP = 'http://mbti.tetz.org/';
 
@@ -56,7 +56,7 @@ export default function Start() {
   }
 
   async function sqlFetchData() {
-    const resCount = await fetch(`${HTTP}/data/count`);
+    const resCount = await fetch(`${SERVER}/data/count`);
     if (resCount.status === 200) {
       const num = await resCount.json();
       if (num[0].counts !== 0) setCounts(num[0].counts);
@@ -64,11 +64,11 @@ export default function Start() {
       throw new Error('통신 이상');
     }
 
-    const resSurvey = await fetch(`${HTTP}/data/survey`);
+    const resSurvey = await fetch(`${SERVER}/data/survey`);
     if (resSurvey.status === 200) {
       const surveyData = await resSurvey.json();
       console.log(surveyData);
-      const resExplaination = await fetch(`${HTTP}/data/explaination`);
+      const resExplaination = await fetch(`${SERVER}/data/explaination`);
       if (resExplaination.status === 200) {
         const explainationData = await resExplaination.json();
         const data = makeData(surveyData, explainationData);
@@ -82,7 +82,7 @@ export default function Start() {
   }
 
   async function mongoFetchData() {
-    const resMongoCount = await fetch(`${HTTP}/mongo/count`);
+    const resMongoCount = await fetch(`${SERVER}/mongo/count`);
     if (resMongoCount.status === 200) {
       const num = await resMongoCount.json();
       console.log(num);
@@ -90,7 +90,7 @@ export default function Start() {
     } else {
       throw new Error('통신 이상');
     }
-    const resMongoData = await fetch(`${HTTP}/mongo/getdata`);
+    const resMongoData = await fetch(`${SERVER}/mongo/getdata`);
     if (resMongoData.status === 200) {
       const data = await resMongoData.json();
       if (data[0].survey.length !== 0) {

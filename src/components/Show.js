@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PinkButton from './PinkButton';
 import { reset } from '../store/modules/mbti';
 
-const SERVER = '3.34.177.57:3001';
+const SERVER = 'http://3.34.177.57:80';
 const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
 const HTTP = 'http://mbti.tetz.org/';
 // I DID IT!!
@@ -38,7 +38,7 @@ export default function Show() {
   const dispatch = useDispatch();
 
   const incCount = async () => {
-    const resInc = await fetch(`${HTTP}/data/inccount`, {
+    const resInc = await fetch(`${SERVER}/data/inccount`, {
       method: 'POST',
     });
     if (resInc.status === 200) {
@@ -49,7 +49,7 @@ export default function Show() {
   };
 
   const mongoIncCount = async () => {
-    const resMongoInc = await fetch(`${HTTP}/mongo/inccount`, {
+    const resMongoInc = await fetch(`${SERVER}/mongo/inccount`, {
       method: 'POST',
     });
     if (resMongoInc.status === 200) {
