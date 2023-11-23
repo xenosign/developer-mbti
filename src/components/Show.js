@@ -52,6 +52,7 @@ export default function Show() {
     });
     if (resMongoInc.status === 200) {
       console.log(await resMongoInc.json());
+      return true;
     } else {
       throw new Error('통신 이상');
     }
@@ -66,10 +67,9 @@ export default function Show() {
       <AdditionalImg src={explanation.img} alt="팩폭" />
       <PinkButton
         text="다시 검사하기"
-        clickEvent={() => {
-          //incCount();
-          mongoIncCount();
-          dispatch(reset());
+        clickEvent={async () => {
+          const result = await mongoIncCount();
+          if (result) dispatch(reset());
         }}
       />
     </>
