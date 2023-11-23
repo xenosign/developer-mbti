@@ -4,9 +4,8 @@ import OrangeButton from './OrangeButton';
 import { next, init } from '../store/modules/mbti';
 import { useEffect, useState } from 'react';
 
-const SERVER = 'http://3.34.177.57:80';
-const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
-const HTTP = 'http://mbti.tetz.org/';
+// const SERVER = 'http://localhost:3001';
+const SERVER = 'http://3.39.25.145:3001';
 
 const MainImg = styled.img`
   width: inherit;
@@ -85,7 +84,6 @@ export default function Start() {
     const resMongoCount = await fetch(`${SERVER}/mongo/count`);
     if (resMongoCount.status === 200) {
       const num = await resMongoCount.json();
-      console.log(num);
       if (num[0].counts !== 0) setCounts((cur) => num[0].counts);
     } else {
       throw new Error('통신 이상');

@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import PinkButton from './PinkButton';
 import { reset } from '../store/modules/mbti';
 
-const SERVER = 'http://3.34.177.57:80';
-const HTTPS = 'https://d2marv4bloqnfv.cloudfront.net';
-const HTTP = 'http://mbti.tetz.org/';
-// I DID IT!!
+// const SERVER = 'http://localhost:3001';
+const SERVER = 'http://3.39.25.145:3001';
 
 const Header = styled.p`
   font-size: 3em;
