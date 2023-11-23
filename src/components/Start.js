@@ -102,7 +102,7 @@ export default function Start() {
   useEffect(() => {
     // sqlFetchData();
     mongoFetchData();
-  }, []);
+  }, [counts]);
 
   return (
     <>
