@@ -69,7 +69,7 @@ export default function Show() {
         text="다시 검사하기"
         clickEvent={async () => {
           const result = await mongoIncCount();
-          if (result) dispatch(reset());
+          if (result) window.location.href = 'http://mbti.tetz.org';
         }}
       />
     </>
